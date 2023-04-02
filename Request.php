@@ -26,7 +26,8 @@ class Request
         $this->header = getallheaders();
         $this->serverInfos = $_SERVER;
         $this->get = $_GET;
-        $this->body = array_merge($_POST, json_decode(file_get_contents('php://input'), true));
+        $inputs = file_get_contents('php://input');
+        $this->body = $inputs === "" ? $_POST : array_merge($_POST, json_decode(file_get_contents('php://input'), true));
         $this->requestedPage = $_SERVER['REQUEST_URI'];
         $this->method = $_SERVER['REQUEST_METHOD'];
     }
