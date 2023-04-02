@@ -38,6 +38,7 @@ class Request
 
     public function checkAuthorization()
     {
+        if (null === $this->getAuthorization()) return null;
         if (str_starts_with($this->getAuthorization(), 'Basic')) {
             return ['Method' => 'Basic', 'username' => $this->serverInfos['PHP_AUTH_USER'], 'password' => $this->serverInfos['PHP_AUTH_PW']];
         }
